@@ -5,7 +5,7 @@ Here is the link for the backend of this [app](https://github.com/Jakhongir222/p
 
 ## Task
 Your task is to create a frontend to the API that you created the other day, aka `puppiesAPI`.
-This is a good app to put in your portfolio, so even though it does not have any design requirements, make it look nice. The application should be built with React and TypeScript
+Make it look nice. The application should be built with React and TypeScript
 
 Requirements for the UI:
 - It should display the initial puppies that exist in the DB on first load.
