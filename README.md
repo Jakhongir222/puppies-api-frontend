@@ -1,4 +1,4 @@
-# Puppies API frontend with React and Typescript
+# Puppies API frontend with React and Typescript.
 
 Here is the link for the backend of this [app](https://github.com/Jakhongir222/puppies-api-backend.git)
 
