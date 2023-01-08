@@ -8,18 +8,19 @@ function Puppies () {
   }
   
 
-  const images: Images = {'Charlie': 'https://images.unsplash.com/photo-1591139308596-9b663fa6d0a0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8SXJhbnxlbnwwfDB8MHx8&auto=format&fit=crop&w=800&q=60',
-    'Max': 'https://images.unsplash.com/photo-1509356843151-3e7d96241e11?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8U3dlZGVufGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
-    'Bella': 'https://images.unsplash.com/photo-1480796927426-f609979314bd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8SmFwYW58ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
-    'Lucy': 'https://images.unsplash.com/photo-1505205296326-2178af1b47bf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8ODF8fEZyYW5jZXxlbnwwfDB8MHx8&auto=format&fit=crop&w=800&q=60',
-    'Daisy' : 'https://images.unsplash.com/photo-1534008897995-27a23e859048?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8VGhhaWxhbmQnfGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
-    'Peanut': 'https://images.unsplash.com/photo-1560703650-ef3e0f254ae0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGdyZWVjZXxlbnwwfDB8MHx8&auto=format&fit=crop&w=800&q=60',
-    'Winston': 'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8TWFsZGl2ZXN8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
-    'Molly': 'https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8SW5kaWF8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
-    'Toby': 'https://images.unsplash.com/photo-1550850839-8dc894ed385a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fFVTQXxlbnwwfDB8MHx8&auto=format&fit=crop&w=800&q=60',
-    'Rocky': 'https://images.unsplash.com/photo-1476610182048-b716b8518aae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8SWNlbGFuZHxlbnwwfDB8MHx8&auto=format&fit=crop&w=800&q=60',
-    'Buddy': 'https://images.unsplash.com/photo-1495885531856-008baf2cbaac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fFVuaXRlZCUyMGFyYWIlMjBlbWlyYXRlc3xlbnwwfDB8MHx8&auto=format&fit=crop&w=800&q=60',
-    'Sasha': 'https://images.unsplash.com/photo-1589561454226-796a8aa89b05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8VHVya2V5fGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=800&q=60'
+  const images: Images = {
+    'Lucy': 'https://images.unsplash.com/photo-1556647034-7aa9a4ea7437?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8R29sZGVuJTIwUmV0cmlldmVyfGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
+    'Charlie': 'https://images.unsplash.com/photo-1515722467270-dfefadd22f6d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8ZG9nJTIwTGFicmFkb29kbGV8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+    'Max': 'https://images.unsplash.com/photo-1558619819-fc2fa628fe77?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fEdlcm1hbiUyMFNoZXBoZXJkfGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
+    'Bella': 'https://images.unsplash.com/photo-1555596873-1916fae19257?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8UG9vZGxlfGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
+    'Daisy' : 'https://images.unsplash.com/photo-1585698708041-af48d48f8c0d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fENvY2tlciUyMFNwYW5pZWx8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+    'Peanut': 'https://images.unsplash.com/photo-1610041518868-f9284e7eecfe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Q2hpaHVhaHVhfGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
+    'Winston': 'https://images.unsplash.com/photo-1611611158876-41699b77a059?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8QnVsbGRvZ3xlbnwwfDB8MHx8&auto=format&fit=crop&w=800&q=60',
+    'Molly': 'https://images.unsplash.com/photo-1529158299404-547993c51cc7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Qm94ZXIlMjBkb2d8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+    'Toby': 'https://images.unsplash.com/photo-1586917138540-f1490b02f205?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fEJlYWdsZSUyMGRvZ3xlbnwwfDB8MHx8&auto=format&fit=crop&w=800&q=60',
+    'Rocky': 'https://images.unsplash.com/photo-1634333190301-43e9f64d1590?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Um90dHdlaWxlcnxlbnwwfDB8MHx8&auto=format&fit=crop&w=800&q=60',
+    'Buddy': 'https://images.unsplash.com/photo-1569384229236-567b90d915cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8UGl0JTIwQnVsbHxlbnwwfDB8MHx8&auto=format&fit=crop&w=800&q=60',
+    'Sasha': 'https://images.unsplash.com/photo-1598584237788-b5d6e87148d0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fFNpYmVyaWFuJTIwSHVza3l8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
   };
 
     const[data, setData]= useState<any | null>(null)
