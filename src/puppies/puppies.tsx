@@ -38,6 +38,7 @@ function Puppies () {
 
     if(isLoading) return <p>Loading</p>
     if(!data) return <p>There are no puppies</p>
+    
 
 
   return (
