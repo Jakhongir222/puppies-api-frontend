@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './puppies.css'
+import axios from 'axios';
+
 
 function Puppies () {
 
@@ -8,7 +10,7 @@ function Puppies () {
   }
   
 
-  const images: Images = {
+  const [images, setImages] = useState<Images>({
     'Lucy': 'https://images.unsplash.com/photo-1556647034-7aa9a4ea7437?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8R29sZGVuJTIwUmV0cmlldmVyfGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
     'Charlie': 'https://images.unsplash.com/photo-1515722467270-dfefadd22f6d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8ZG9nJTIwTGFicmFkb29kbGV8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
     'Max': 'https://images.unsplash.com/photo-1558619819-fc2fa628fe77?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fEdlcm1hbiUyMFNoZXBoZXJkfGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
@@ -21,7 +23,7 @@ function Puppies () {
     'Rocky': 'https://images.unsplash.com/photo-1634333190301-43e9f64d1590?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Um90dHdlaWxlcnxlbnwwfDB8MHx8&auto=format&fit=crop&w=800&q=60',
     'Buddy': 'https://images.unsplash.com/photo-1569384229236-567b90d915cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8UGl0JTIwQnVsbHxlbnwwfDB8MHx8&auto=format&fit=crop&w=800&q=60',
     'Sasha': 'https://images.unsplash.com/photo-1598584237788-b5d6e87148d0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fFNpYmVyaWFuJTIwSHVza3l8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
-  };
+  });
 
     const[data, setData]= useState<any | null>(null)
     const [isLoading, setLoading] = useState(false)
@@ -37,22 +39,47 @@ function Puppies () {
     }, [])
 
     if(isLoading) return <p>Loading</p>
-    if(!data) return <p>There are no puppies</p>
+    if(!data) return <p>There are no puppies</p>  
+
+    const deletePuppy = async (puppyName: string, puppyId: number) => {
+      // Make a DELETE request to your backend service to delete the puppy from the database
+      await axios.delete(`http://localhost:8080/puppies/${puppyId}`);
+    
+      // Remove the image from the "images" object
+      const newImages = { ...images };
+      delete newImages[puppyName];
+      setImages(newImages);
+    
+      // Remove the puppy from the "data" array
+      const newData = data.filter((item: { puppyName: string; }) => item.puppyName !== puppyName);
+      setData(newData);
+    }
+    
+      
+
+    return (
+      <div className='puppies'>
+      {data.map((item: { puppyName: string; puppyBreed: string; puppyBirthday: string; puppyId: number; }, index: React.Key | null | undefined)=>
+      <div className='puppy-cart' key={item.puppyId}>
+        <img className='article-image' src={images[item.puppyName]} width='368' height='250'/>
+          <p>{item.puppyName}</p>
+          <p>{item.puppyBreed}</p>
+          <p>{item.puppyBirthday}</p>
+          <button onClick={() => deletePuppy(item.puppyName, item.puppyId)}>Delete</button>      </div>
+      )}
+  </div>
+);
     
 
 
-  return (
-    <div className='puppies'>
-        {data.map((item: { puppyName: string; puppyBreed: string; puppyBirthday: string; puppyId: number; }, index: React.Key | null | undefined)=>
-        <div className='puppy-cart' key={item.puppyId}>
-          <img className='article-image' src={images[item.puppyName]} width='368' height='250'/>
-            <p>{item.puppyName}</p>
-            <p>{item.puppyBreed}</p>
-            <p>{item.puppyBirthday}</p>
-        </div>
-        )}
-    </div>
-  )
+
+  
+
+
+
+
+
+
 }
 
 export default Puppies
