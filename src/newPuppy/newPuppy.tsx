@@ -41,6 +41,7 @@ const AddPuppy: React.FC = () => {
   };
 
   return (
+    
     <form className='container' onSubmit={handleSubmit}>
       <label htmlFor="puppyName">Name:</label>
       <input
