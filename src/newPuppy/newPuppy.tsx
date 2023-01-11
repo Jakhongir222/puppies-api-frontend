@@ -1,84 +1,77 @@
-import React from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import './newPuppy.css'
 
-interface PuppyFormProps {
-  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-interface PuppyFormState {
+interface Puppy {
   puppyName: string;
   puppyBreed: string;
-  puppyBirthday: number;
+  puppyBirthday: string;
 }
 
-class PuppyForm extends React.Component<PuppyFormProps, PuppyFormState> {
-  constructor(props: PuppyFormProps) {
-    super(props);
-    this.state = {
-      puppyName: '',
-      puppyBreed: '',
-      puppyBirthday: 0
-    };
-  }
-
-  render() {
-    return (
-      <form onSubmit={this.props.onSubmit}>
-        <label htmlFor="name">Name:</label>
-        <input
-          type="text"
-          name="puppyName"
-          value={this.state.puppyName}
-          onChange={this.props.onChange}
-        />
-        <br />
-        <label htmlFor="age">Age:</label>
-        <input
-          type="number"
-          name="puppyBirthday"
-          value={this.state.puppyBirthday}
-          onChange={this.props.onChange}
-        />
-        <br />
-        <label htmlFor="breed">Breed:</label>
-        <input
-          type="text"
-          name="puppyBreed"
-          value={this.state.puppyBreed}
-          onChange={this.props.onChange}
-        />
-        <br />
-        <button type="submit">Add Puppy</button>
-      </form>
-    );
-  }
-}
-
-const NewPuppy: React.FC = () => {
-  const [puppyFormState, setPuppyFormState] = React.useState<PuppyFormState>({
+const AddPuppy: React.FC = () => {
+  const [puppy, setPuppy] = useState<Puppy>({
     puppyName: '',
     puppyBreed: '',
-    puppyBirthday: 0
+    puppyBirthday: '',
   });
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      const response = await fetch('http://localhost:8080/puppies', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(puppy),
+      });
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      alert('Puppy added successfully!');
+      setPuppy({ puppyName: '', puppyBreed: '', puppyBirthday: '' });
+    } catch (err) {
+      console.error(err);
+      alert('Failed to add puppy, please try again.');
+    }
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setPuppyFormState((prevState) => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-   
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    axios.post('/puppies', puppyFormState)
-      .then((res) => console.log(res))
-      .catch((error) => console.error(error));
+    setPuppy((prevPuppy) => ({ ...prevPuppy, [name]: value }));
   };
 
-  return <PuppyForm onSubmit={handleSubmit} onChange={handleChange} />;
+  return (
+    <form className='container' onSubmit={handleSubmit}>
+      <label htmlFor="puppyName">Name:</label>
+      <input
+        type="text"
+        id="puppyName"
+        name="puppyName"
+        value={puppy.puppyName}
+        onChange={handleChange}
+      />
+      <br />
+      <label htmlFor="puppyBreed">Breed:</label>
+      <input
+        type="text"
+        id="puppyBreed"
+        name="puppyBreed"
+        value={puppy.puppyBreed}
+        onChange={handleChange}
+      />
+      <br />
+      <label htmlFor="puppyBirthday">Birthday:</label>
+      <input
+        type="text"
+        id="puppyBirthday"
+        name="puppyBirthday"
+        value={puppy.puppyBirthday}
+        onChange={handleChange}
+      />
+      <br />
+      <button type="submit">Add Puppy</button>
+    </form>
+  );
 };
 
-export default NewPuppy;
+export default AddPuppy;

@@ -7,7 +7,7 @@ function App() {
     <div>
       <header>
       </header>
-        <h1>Jak's puppy rescue agency</h1>
+        <h1>Jak's puppy rescue bureau &#128021;</h1>
         <NewPuppy/>
         <Puppies/>
     </div>

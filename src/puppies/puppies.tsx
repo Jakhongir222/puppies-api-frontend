@@ -8,6 +8,11 @@ function Puppies () {
   interface Images {
     [puppyName: string]: string;
   }
+
+  const [editMode, setEditMode] = useState(false);
+  const [puppyName, setPuppyName] = useState('');
+  const [puppyBreed, setPuppyBreed] = useState('');
+  const [puppyBirthday, setPuppyBirthday] = useState('');
   
 
   const [images, setImages] = useState<Images>({
@@ -42,29 +47,36 @@ function Puppies () {
     if(!data) return <p>There are no puppies</p>  
 
     const deletePuppy = async (puppyName: string, puppyId: number) => {
-      // Make a DELETE request to your backend service to delete the puppy from the database
       await axios.delete(`http://localhost:8080/puppies/${puppyId}`);
-    
-      // Remove the image from the "images" object
       const newImages = { ...images };
       delete newImages[puppyName];
       setImages(newImages);
-    
-      // Remove the puppy from the "data" array
       const newData = data.filter((item: { puppyName: string; }) => item.puppyName !== puppyName);
       setData(newData);
     }
-    
-      
+
+    const updatePuppy = async (puppyId: number) => {
+      try {
+          const response = await axios.put(`http://localhost:8080/puppies/${puppyId}`, {
+              puppyName: puppyName,
+              puppyBreed: puppyBreed,
+              puppyBirthday: puppyBirthday
+          });
+          setEditMode(false);
+      } catch (error) {
+          console.error(error);
+      }
+  };
 
     return (
       <div className='puppies'>
       {data.map((item: { puppyName: string; puppyBreed: string; puppyBirthday: string; puppyId: number; }, index: React.Key | null | undefined)=>
       <div className='puppy-cart' key={item.puppyId}>
-        <img className='article-image' src={images[item.puppyName]} width='368' height='250'/>
+        <img className='article-image' src={item.puppyName in images ? images[item.puppyName] : 'https://cdn.dribbble.com/userupload/3079047/file/original-40e155214e180fc53f5cca7ae9b74681.png?resize=400x0'} width='368' height='250'/>
           <p>{item.puppyName}</p>
           <p>{item.puppyBreed}</p>
           <p>{item.puppyBirthday}</p>
+          <button onClick={() => updatePuppy(item.puppyId)}>Edit</button>
           <button onClick={() => deletePuppy(item.puppyName, item.puppyId)}>Delete</button>      </div>
       )}
   </div>

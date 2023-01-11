@@ -1,17 +1,11 @@
-.puppies {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    margin-bottom: 10px;
-} 
-
-.puppy-cart {
+.container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin: 25px;
     padding: 25px;
-    height: 450px;
-    width: 370px;
+    height: 200px;
+    width: 200px;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     background-color: white;
 }
