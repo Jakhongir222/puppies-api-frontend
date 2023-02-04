@@ -17,7 +17,7 @@ const AddPuppy: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://puppies-api-backend-production.up.railway.app/puppies', {
+      const response = await fetch('https://puppies-api-backend-production.up.railway.app/puppies', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

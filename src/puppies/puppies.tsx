@@ -37,7 +37,7 @@ const editPuppy = (puppy: {puppyName: string, puppyBreed: string, puppyBirthday:
 
     const[data, setData]= useState<any | null>(null)
     const [isLoading, setLoading] = useState(false)
-    const baseUrl = 'http://puppies-api-backend-production.up.railway.app/puppies';
+    const baseUrl = 'https://puppies-api-backend-production.up.railway.app/puppies';
 
     useEffect(()=>{
         setLoading(true);
@@ -52,7 +52,7 @@ const editPuppy = (puppy: {puppyName: string, puppyBreed: string, puppyBirthday:
     if(!data) return <p>There are no puppies</p>  
 
     const deletePuppy = async (puppyName: string, puppyId: number) => {
-      await axios.delete(`http://localhost:8080/puppies/${puppyId}`);
+      await axios.delete(`https://puppies-api-backend-production.up.railway.app/puppies/${puppyId}`);
       const newImages = { ...images };
       delete newImages[puppyName];
       setImages(newImages);
@@ -63,10 +63,10 @@ const editPuppy = (puppy: {puppyName: string, puppyBreed: string, puppyBirthday:
     const updatePuppy = async () => {
       if(puppyToEdit) {
         try {
-            const response = await axios.put(`http://puppies-api-backend-production.up.railway.app/puppies/${puppyToEdit.puppyId}`, puppyToEdit);
+            const response = await axios.put(`https://puppies-api-backend-production.up.railway.app/puppies/${puppyToEdit.puppyId}`, puppyToEdit);
             setEditMode(false);
             setPuppyToEdit(null);
-            const fetchData = await axios.get(`http://puppies-api-backend-production.up.railway.app/puppies`);
+            const fetchData = await axios.get(`https://puppies-api-backend-production.up.railway.app/puppies`);
             setData(fetchData.data);
         } catch (error) {
             console.error(error);
