@@ -99,17 +99,6 @@ const editPuppy = (puppy: {puppyName: string, puppyBreed: string, puppyBirthday:
           )}
       </div>
     );
-    
-    
-
-
-
-  
-
-
-
-
-
 
 }
 

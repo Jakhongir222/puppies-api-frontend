@@ -27,7 +27,6 @@ const AddPuppy: React.FC = () => {
       if (!response.ok) {
         throw new Error(response.statusText);
       }
-      alert('Puppy added successfully!');
       setPuppy({ puppyName: '', puppyBreed: '', puppyBirthday: '' });
     } catch (err) {
       console.error(err);
