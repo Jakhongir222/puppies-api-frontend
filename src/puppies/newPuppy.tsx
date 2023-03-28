@@ -7,7 +7,12 @@ interface Puppy {
   puppyBirthday: string;
 }
 
-const AddPuppy: React.FC = () => {
+interface NewPuppyProps {
+  refreshPuppies: () => Promise<void>;
+  getPuppies: () => Promise<void>;
+}
+
+const NewPuppy: React.FC<NewPuppyProps> = ({ refreshPuppies, getPuppies }) => {
   const [puppy, setPuppy] = useState<Puppy>({
     puppyName: '',
     puppyBreed: '',
@@ -28,6 +33,7 @@ const AddPuppy: React.FC = () => {
         throw new Error(response.statusText);
       }
       setPuppy({ puppyName: '', puppyBreed: '', puppyBirthday: '' });
+      await refreshPuppies();
     } catch (err) {
       console.error(err);
       alert('Failed to add puppy, please try again.');
@@ -40,7 +46,6 @@ const AddPuppy: React.FC = () => {
   };
 
   return (
-    
     <form className='container' onSubmit={handleSubmit}>
       <label htmlFor="puppyName">Name:</label>
       <input
@@ -74,4 +79,4 @@ const AddPuppy: React.FC = () => {
   );
 };
 
-export default AddPuppy;
+export default NewPuppy;

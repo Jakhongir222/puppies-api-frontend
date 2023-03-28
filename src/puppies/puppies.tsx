@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './puppies.css'
 import axios from 'axios';
-
+import NewPuppy from './newPuppy';
 
 function Puppies () {
 
@@ -10,15 +10,7 @@ function Puppies () {
   }
 
   const [editMode, setEditMode] = useState(true);
-  
-
   const [puppyToEdit, setPuppyToEdit] = useState<{puppyName: string, puppyBreed: string, puppyBirthday: string, puppyId: number}| null>(null);
-
-const editPuppy = (puppy: {puppyName: string, puppyBreed: string, puppyBirthday: string, puppyId: number}) => {
-  setPuppyToEdit(puppy);
-  setEditMode(true);
-}
-  
 
   const [images, setImages] = useState<Images>({
     'Lucy': 'https://images.unsplash.com/photo-1556647034-7aa9a4ea7437?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8R29sZGVuJTIwUmV0cmlldmVyfGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
@@ -35,46 +27,61 @@ const editPuppy = (puppy: {puppyName: string, puppyBreed: string, puppyBirthday:
     'Sasha': 'https://images.unsplash.com/photo-1598584237788-b5d6e87148d0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fFNpYmVyaWFuJTIwSHVza3l8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
   });
 
-    const[data, setData]= useState<any | null>(null)
-    const [isLoading, setLoading] = useState(false)
-    const baseUrl = 'https://puppies-api-backend-production.up.railway.app/puppies';
+  const[data, setData]= useState<any | null>(null)
+  const baseUrl = 'https://puppies-api-backend-production.up.railway.app/puppies';
 
-    useEffect(()=>{
-        setLoading(true);
-        fetch(baseUrl)
-            .then(data=> data.json())
-            .then((data) => 
-                setData(data))
-                setLoading(false)
-    }, [])
+  useEffect(()=>{
+    fetch(baseUrl)
+      .then(data=> data.json())
+      .then((data) => 
+          setData(data))
+  }, [])
 
-    if(isLoading) return <p>Loading</p>
-    if(!data) return <p>There are no puppies</p>  
+  if(!data) return <p>There are no puppies</p>  
 
-    const deletePuppy = async (puppyName: string, puppyId: number) => {
-      await axios.delete(`https://puppies-api-backend-production.up.railway.app/puppies/${puppyId}`);
-      const newImages = { ...images };
-      delete newImages[puppyName];
-      setImages(newImages);
-      const newData = data.filter((item: { puppyName: string; }) => item.puppyName !== puppyName);
-      setData(newData);
-    }
+  const editPuppy = (puppy: {puppyName: string, puppyBreed: string, puppyBirthday: string, puppyId: number}) => {
+    setPuppyToEdit(puppy);
+    setEditMode(true);
+  }
 
-    const updatePuppy = async () => {
-      if(puppyToEdit) {
-        try {
-            const response = await axios.put(`https://puppies-api-backend-production.up.railway.app/puppies/${puppyToEdit.puppyId}`, puppyToEdit);
-            setEditMode(false);
-            setPuppyToEdit(null);
-            const fetchData = await axios.get(`https://puppies-api-backend-production.up.railway.app/puppies`);
-            setData(fetchData.data);
-        } catch (error) {
-            console.error(error);
-        }
+  const deletePuppy = async (puppyName: string, puppyId: number) => {
+    await axios.delete(baseUrl+`/${puppyId}`);
+    const newImages = { ...images };
+    delete newImages[puppyName];
+    setImages(newImages);
+    const newData = data.filter((item: { puppyName: string; }) => item.puppyName !== puppyName);
+    setData(newData);
+  }
+
+  const updatePuppy = async () => {
+    if(puppyToEdit) {
+      try {
+          const response = await axios.put(baseUrl+`/${puppyToEdit.puppyId}`, puppyToEdit);
+          setEditMode(false);
+          setPuppyToEdit(null);
+          const fetchData = await axios.get(baseUrl);
+          setData(fetchData.data);
+      } catch (error) {
+          console.error(error);
       }
-    };
+    }
+  };
 
-    return (
+  const getPuppies = async () => {
+    try {
+      const response = await axios.get(baseUrl);
+      setData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+  
+  return (
+    <div>
+      <NewPuppy refreshPuppies={getPuppies} getPuppies={function (): Promise<void> {
+        throw new Error('Function not implemented.');
+      } } />
       <div className='puppies'>
           {data.map((item: { puppyName: string; puppyBreed: string; puppyBirthday: string; puppyId: number; }, index: React.Key | null | undefined)=>
           <div className='puppy-cart' key={item.puppyId}>
@@ -97,6 +104,7 @@ const editPuppy = (puppy: {puppyName: string, puppyBreed: string, puppyBirthday:
               <button onClick={() => deletePuppy(item.puppyName, item.puppyId)}>Delete</button>
           </div>
           )}
+      </div>
       </div>
     );
 
